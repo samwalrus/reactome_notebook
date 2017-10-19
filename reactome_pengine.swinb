@@ -400,7 +400,7 @@ reactome_server(_S),length(_List,12050),append([_|_List],_Rest,_All),url_datatab
 <div class="nb-cell program" data-background="true">
 :- &lt;- library("ggplot2").
 program(Program):-
-    Program=[(pathways_40(P):- findnsols(40,Rid,rid_type_iri(Rid,'Pathway',_),P)),
+    Program=[(pathways_30(P):- findnsols(30,Rid,rid_type_iri(Rid,'Pathway',_),P)),
         (ridPathway_reaction_(P,R):-ridPathway_links(P,L),member(E,L),E=..[_,R,_,_,_]),
         (ridPathway_reaction_(P,R):-ridPathway_links(P,L),member(E,L),E=..[_,_,_,_,R]),
         (ridPathway_reactions_(P,Rs):-
@@ -409,7 +409,7 @@ program(Program):-
         ridPathway_links(P,Ls),length(Ls,NE),
         ridPathway_reactions_(P,Rs),length(Rs,NR)    
         ),
-        (xs_ys(Xs,Ys):-pathways_40(P),maplist(pathway_numberedges_numberreactions,P,Xs,Ys))].
+        (xs_ys(Xs,Ys):-pathways_30(P),maplist(pathway_numberedges_numberreactions,P,Xs,Ys))].
 
 get_data(Xs,Ys):-
     reactome_server(S),
