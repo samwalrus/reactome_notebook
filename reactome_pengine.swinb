@@ -251,7 +251,7 @@ so for instance, we can write a definite clause grammar (<a href="https://www.me
 These have a slightly different syntax to standard Prolog predicates, but can also be sent to The Pengine Reactome.
 For simplicity of presenentation the DCG in the example below runs on the SWISH server.
 This example finds paths that pass through a reaction and that satisfy a user defined rule.
-In this case we simply ask for a path that passes through a reaction that has 'Protein11301' as an input. 
+In this case we simply ask for a path that passes through a reaction that has CTDP1 (Protein11301) as an input. 
 Additioinally we add 'Path=[_,_|_].' to the query.
 This serves as a constraint to find paths with at least two steps.
 </p>
