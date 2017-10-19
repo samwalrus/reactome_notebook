@@ -8,19 +8,17 @@
 
 <p>
   In this note book we first briefly explain the data model of the underlying Reactome data set. 
-  Secondly, we explain the data model that we have built into The Reactome Pengine.
+  Secondly, we explain the data model that we have built into Reactome Pengine.
   We then explain where computations take place.
-  Next we give some example queries that illustrate the capabilies of The Reactome Pengine in the context of a SWISH notebook, including graphical rendering, R integration and Javascript applications.
+  Next we give some example queries that illustrate the capabilies of Reactome Pengine in the context of a SWISH notebook, including graphical rendering, R integration and Javascript applications.
   Also note that further functionality of the Pengine Reactome can be utilised by building client applications in the full desktop version of SWI-Prolog.
-  The examples of functionalilty in this notebook are a fraction of the possible ways to use The Reactome Pengine,
+  The examples of functionalilty in this notebook are a fraction of the possible ways to use Reactome Pengine,
   intended to illustrate calls to the API. 
-  <!--It does not attempt to perform vigerous analysis.-->
-  test2
 </p>
 <p>
   </p><ul>
     <li>Note: To familise yourself with SWISH and Prolog see the examples in the toolbar menu.</li>
-    <li>Note: All queries to The Reactome Pengine are logged.  </li>
+    <li>Note: All queries to Reactome Pengine are logged.  </li>
     <li>Note: Academics Please cite Q </li>
 </ul>
 <p></p>
@@ -135,7 +133,6 @@ member(ridReaction_ridLink_type_ridReaction(R1, 'Complex452', 'ACTIVATION', R2),
 </div>
 
 <div class="nb-cell program">
-%This is too slow
 pathway_with_complex452_activation(P):-
     ridPathway_links(P,Ls),
     member(ridReaction_ridLink_type_ridReaction(_R1, 'Complex452', 'ACTIVATION', _R2),Ls).
@@ -168,28 +165,28 @@ small_pathway_with_complex452_activation(P).
 
 <div class="nb-cell html">
 <h2> Where the execution of our programs takes place</h2>
-<p> As we are seeing, using Prolog allows us to specify programs and algorithms, not just queries (in contrast to SQL, REST APIs and SPARQL).</p>
+<p> As we are seeing, using Prolog allows us to specify programs and algorithms, not just queries (in contrast to SQL, Cypher, REST APIs and SPARQL).</p>
 
-<p> When using SWISH our programs are either executed on The Reactome Pengine or on the 
+<p> When using SWISH our programs are either executed on Reactome Pengine or on the 
 SWISH server (itself a pengine application).
-When using the desktop version of SWI Prolog, programs are either exectued on The Reactome Pengine or your local machine.
+When using the desktop version of SWI Prolog, programs are either exectued on Reactome Pengine or your local machine.
 
 The idea is that small programs can be brought to the large data, rather than needing to transfer large datasets to a users machine.
 This, alongside the abilty to send programs to the pengine, makes for an extremly flexible logical API.
 
-  Both SWISH and The Reactome Pengine have a time limit on queries. 
+  Both SWISH and Reactome Pengine have a time limit on queries. 
   
-So far we have made simple queries of The Reactome Pengine, and executed our programs in SWISH.
+So far we have made simple queries of Reactome Pengine, and executed our programs in SWISH.
 In order to reduce the data transfer, and to send a program to the Pengine Reactome we use the 3rd argument of <i>pengine_rpc/3</i>.
   
 </p><p>
 Here we write a program to find a path on the graph of reactions across the whole Reactome.
   The predicate <i>path_program/1</i> returns the program we wish to run, as a list of clauses.
-  The predicate <i>path_from_to/3</i> retrieves the server address and program and sends this, along with the query, to The Reactome Pengine.
+  The predicate <i>path_from_to/3</i> retrieves the server address and program and sends this, along with the query, to Reactome Pengine.
 The identified path is then returned.
 </p>
 <p>
-To perform the same query without using The Reactome Pengine the entire database would need to be downloaded.
+To perform the same query without using Reactome Pengine the entire database would need to be downloaded.
 </p>
 </div>
 
@@ -224,7 +221,7 @@ path_from_to(Path,From,To).
 </div>
 
 <div class="nb-cell html">
-<p>The following query performs a breadth first search to find the shortest paths: </p>
+<p>The following query performs a breadth first search to find the shortest paths (click next to see succesive results): </p>
 </div>
 
 <div class="nb-cell query">
@@ -337,8 +334,8 @@ chart(C).
 </div>
 
 <div class="nb-cell html">
-<h2>Scraping the web and integrating with The Reactome Pengine</h2>
-<p> Scraping the traditional HTML web for data makes it possible to combine many existing remote data sites with The Reactome Pengine.
+<h2>Scraping the web and integrating with Reactome Pengine</h2>
+<p> Scraping the traditional HTML web for data makes it possible to combine many existing remote data sites with Reactome Pengine.
   Web scraping inside SWISH is currently limited to using the predicate <a href="http://www.swi-prolog.org/pldoc/man?predicate=load_html/3">load_html/3</a>, whereas
   if you build a client application with the full version of SWI Prolog then predicates such as <a href="http://www.swi-prolog.org/pldoc/doc_for?object=http_open/3"> http_open/3</a>, are available.
   After retrieving the HTML using either of these methods, we can then utilise libraries sgml and xpath to manipulate the data.
@@ -385,7 +382,7 @@ length(List,10),append([_|List],_Rest,_All),url_datatable(_U,_All).
 </div>
 
 <div class="nb-cell html">
-<p> We can now integrate our webscraping and The Reactome Pengine in a single query. Here we find the expression values for the probes for Protein11042.</p>
+<p> We can now integrate our webscraping and Reactome Pengine in a single query. Here we find the expression values for the probes for Protein11042.</p>
 </div>
 
 <div class="nb-cell query">
@@ -466,7 +463,7 @@ get_data(NumberOfEdges,NumberOfReactions), &lt;-qplot(NumberOfEdges,NumberOfReac
 </p>
 <p>
   For the second feature, we use the data of gene expression that we have scraped from the GEO website and perform the following steps:
-</p><ol><li>Query The Reactome Pengine for the set of probes that code for the set of proteins that are inputs for each reaction in the graph.
+</p><ol><li>Query Reactome Pengine for the set of probes that code for the set of proteins that are inputs for each reaction in the graph.
 </li><li> For each probe we retrieve the expression levels from the scaped GEO data.
 </li><li> Calculate the sum of the expression levels of the probes of each reaction.
 </li><li> Rescale the sumations to be between 0 and 1.
@@ -769,7 +766,7 @@ ridPathway_hive('Pathway21',H).
 <div class="nb-cell html">
 <h1> Summary </h1>
 <p>
-The Reactome Pengine is a weblogic API to query the human reactome.
+Reactome Pengine is a weblogic API to query the human reactome.
 It provides both raw RDF data access and a set of built in predicates to facilate this.
 The pengine technology allows users to send entire programs to the API to augment the built in data and predicates.
 It can do this from a local client program, or as here in  a cloud hosted SWISH notebook.
@@ -778,9 +775,7 @@ Programs running in SWI-Prolog client applications enable full access to the pow
 Either of these options allow researchers to perform anaylis of data that requires querying the human reactome and integrating with other data sources.
 In fact it is possible to go further and build entire web applications, where The Pengine Reactome is a component part.
 </p>
-<p>
-Finally we would encourage interested readers to investigate <a href="http://cplint.lamping.unife.it/">Cplint</a> Which is similar to SWISH, but includes many probalistic and machine learning extenstions to Prolog. These are likely to be of interest to users of The Pengine Reactome.
-</p>
+
 </div>
 
 </div>
