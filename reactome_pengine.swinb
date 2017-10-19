@@ -1,6 +1,6 @@
 <div class="notebook">
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm1">
 <h1>
   Reactome Pengine Examples
 </h1>
@@ -38,7 +38,7 @@
 </p>
 </div>
 
-<div class="nb-cell program" data-background="true">
+<div class="nb-cell program" data-background="true" name="p1">
 :-use_module(library(pengines)).
 reactome_server('https://apps.nms.kcl.ac.uk/reactome-pengine').
 rdf(X,Y,Z):-
@@ -46,11 +46,11 @@ rdf(X,Y,Z):-
     pengine_rpc(S,rdf(X,Y,Z),[]).
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q1">
 rdf(X,Y,Z).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm2">
 <p>
   The semantic web library of prolog has other access predicates to query this data,
   for example <i>rdf_has/3</i>.
@@ -58,7 +58,7 @@ rdf(X,Y,Z).
 </p>
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm3">
 <h2> Our Reactome Pengine data model</h2>
 <p>
 In addition to the direct method of querying the RDF file using the Prolog semantic web library, a number of higher level predicates built on top of this library are also provided. 
@@ -89,30 +89,45 @@ Details are given in the Reactome Pengine API documentation.
     <p></p>
 </div>
 
-<div class="nb-cell program" data-background="true">
+<div class="nb-cell program" data-background="true" name="p2">
 ridPathway_links(P,Ls):-
     reactome_server(S),
     pengine_rpc(S,ridPathway_links(P,Ls)).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm4">
 <p> Generate pathways and a list of links in the pathway using: </p>
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q2">
 ridPathway_links(P,L).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm5">
 <p> Generate pathways that have an activation link where the activating entity is 'Complex452' using: </p>
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q3">
 ridPathway_links(P,_Ls),
 member(ridReaction_ridLink_type_ridReaction(R1, 'Complex452', 'ACTIVATION', R2),_Ls).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm21">
+<h1>Conveting between Reactome Identifiers and familiar names/identifiers </h1>
+<p>In order to convert between the Reactome identifiers and the common names of entities you can use the rid_name/2 predicate. </p>
+<p>You may also want to convert Reactome protien identifiers to  Uniprot identifiers, for this you can use ridProtein_uniprotId/2 </p>
+<p>Both of these predicates are full relations so a user can query in both directions and use the predicate to generate examples or to check that a pair are releated </p>
+</div>
+
+<div class="nb-cell query" name="q17">
+reactome_server(S),pengine_rpc(S,rid_name('Complex452',Name),[]).
+</div>
+
+<div class="nb-cell query" name="q18">
+reactome_server(S),pengine_rpc(S,ridProtein_uniprotId('Protein1',UniprotId),[]).
+</div>
+
+<div class="nb-cell html" name="htm6">
 <h2> Naming and reuse of queries </h2>
 <p> In Prolog a query is a call to a predicate (or as we have seen a conjunction of predicates). 
   As with any Prolog program we can reuse a query and assign it a name by writing a new predicate definition containing the query.
@@ -132,7 +147,7 @@ member(ridReaction_ridLink_type_ridReaction(R1, 'Complex452', 'ACTIVATION', R2),
 </p>
 </div>
 
-<div class="nb-cell program">
+<div class="nb-cell program" name="p3">
 pathway_with_complex452_activation(P):-
     ridPathway_links(P,Ls),
     member(ridReaction_ridLink_type_ridReaction(_R1, 'Complex452', 'ACTIVATION', _R2),Ls).
@@ -147,23 +162,23 @@ small_pathway_with_complex452_activation(P):-
     pathway_with_complex452_activation(P).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm7">
 <p> Running these three queries allows you to see that the answers to the third query is the intersection of the answer to the first two queries as we expected.</p>
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q4">
 pathway_with_complex452_activation(P).
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q5">
 small_pathway(P).
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q6">
 small_pathway_with_complex452_activation(P).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm8">
 <h2> Where the execution of our programs takes place</h2>
 <p> As we are seeing, using Prolog allows us to specify programs and algorithms, not just queries (in contrast to SQL, Cypher, REST APIs and SPARQL).</p>
 
@@ -190,7 +205,7 @@ To perform the same query without using Reactome Pengine the entire database wou
 </p>
 </div>
 
-<div class="nb-cell program" data-background="true">
+<div class="nb-cell program" data-background="true" name="p4">
 :-use_module(library(pengines)).
 
 
@@ -216,19 +231,19 @@ path_from_to(Path,From,To):-
     pengine_rpc(Server,Query,[src_list(Program)]).
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q7">
 path_from_to(Path,From,To).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm9">
 <p>The following query performs a breadth first search to find the shortest paths (click next to see succesive results): </p>
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q8">
 length(Path,_),path_from_to(Path,From,To).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm10">
 <h2> Definite Clause Grammars </h2>
 <p>
 In Prolog we can describe lists declaratively,
@@ -242,7 +257,7 @@ This serves as a constraint to find paths with at least two steps.
 </p>
 </div>
 
-<div class="nb-cell program">
+<div class="nb-cell program" name="p5">
 ridReaction_input(Rid,I):-
     reactome_server(S),
     pengine_rpc(S,ridReaction_input(Rid,I),[]).
@@ -258,11 +273,11 @@ end --&gt; [].
 end --&gt; [_],end.
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q9">
 path_from_to(Path,From,To), phrase(okPath,Path), Path=[_,_|_].
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm11">
 <h2> Rendering the query results</h2>
 <h3> Graphviz </h3>
 <p>
@@ -274,7 +289,7 @@ path_from_to(Path,From,To), phrase(okPath,Path), Path=[_,_|_].
 </p>
 </div>
 
-<div class="nb-cell program">
+<div class="nb-cell program" name="p6">
 :- use_rendering(graphviz).
 
 graphviz_program(Program):-
@@ -298,29 +313,28 @@ pathway_graphviz(P,G):-
     G = digraph(GE).
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q10">
 pathway_graphviz(X,G).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm12">
 <h3> Charting data with C3</h3>
   
   <p> We can chart data from Reactome using C3, a Javascript visualisation library. 
     The following code makes a simple plot showing the number of reactions in a set of pathways.</p>
 </div>
 
-<div class="nb-cell program" data-background="true">
+<div class="nb-cell program" data-background="true" name="p7">
 :- use_rendering(c3).
 
 pathways(P):-
     P=['Pathway1','Pathway2','Pathway5','Pathway12'].
 
-pathway_pairsize(P,P-L):-
+pathway_pairsize(P,PName-L):-
     reactome_server(S),
-    pengine_rpc(S,ridPathway_reactions(P,R),[]),
+    pengine_rpc(S,(ridPathway_reactions(P,R),rid_name(P,PName)),[]),
     length(R,L).
 
-pathway_size(P,S):-pathway_pairsize(P,P-S).
 
 chart(Chart):-
     pathways(P),
@@ -329,11 +343,11 @@ chart(Chart):-
 	       axis:_{x:_{type:category}}}.
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q11">
 chart(C).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm13">
 <h2>Scraping the web and integrating with Reactome Pengine</h2>
 <p> Scraping the traditional HTML web for data makes it possible to combine many existing remote data sites with Reactome Pengine.
   Web scraping inside SWISH is currently limited to using the predicate <a href="http://www.swi-prolog.org/pldoc/man?predicate=load_html/3">load_html/3</a>, whereas
@@ -347,7 +361,7 @@ chart(C).
 </p>
 </div>
 
-<div class="nb-cell program" data-background="true">
+<div class="nb-cell program" data-background="true" name="p8">
 :- use_module(library(sgml)).
 :- use_module(library(xpath)).
 
@@ -373,23 +387,23 @@ assoc_key_val(Assoc,Key,Value):- get_assoc(Key, Assoc,Value).
 assoc_key_val(Assoc,Key,na):- \+get_assoc(Key,Assoc,_Value).
 </div>
 
-<div class="nb-cell program">
+<div class="nb-cell program" name="p9">
 :- use_rendering(table).
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q12">
 length(List,10),append([_|List],_Rest,_All),url_datatable(_U,_All).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm14">
 <p> We can now integrate our webscraping and Reactome Pengine in a single query. Here we find the expression values for the probes for Protein11042.</p>
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q13">
 reactome_server(_S),length(_List,12050),append([_|_List],_Rest,_All),url_datatable(_U,_All), maplist(row_pair,_List,_Pairs),list_to_assoc(_Pairs,_Assoc),pengine_rpc(_S,ridProtein_probelist('Protein11042',Probelist),[]), maplist(atom_string,Probelist,_ProbelistStrings),maplist(assoc_key_val(_Assoc),_ProbelistStrings,Valuelist).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm15">
 <h2> R Integration </h2>
 <p> The R programming language is built into SWISH, which means that 
    we can perform statistical analysis using familar tools. For full details see <a href="http://swish.swi-prolog.org/example/Rserve.swinb#">here.</a> 
@@ -397,7 +411,7 @@ reactome_server(_S),length(_List,12050),append([_|_List],_Rest,_All),url_datatab
   We then use R to calculate the correlation, fit a line and plot these using R's qplot function.</p>
 </div>
 
-<div class="nb-cell program" data-background="true">
+<div class="nb-cell program" data-background="true" name="p10">
 :- &lt;- library("ggplot2").
 program(Program):-
     Program=[(pathways_30(P):- findnsols(30,Rid,rid_type_iri(Rid,'Pathway',_),P)),
@@ -417,23 +431,23 @@ get_data(Xs,Ys):-
     pengine_rpc(S,xs_ys(Xs,Ys),[src_list(Program)]).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm16">
 <p> Run this query to see the correlation: </p>
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q14">
 get_data(NumberOfEdges,NumberOfReactions), Correlation &lt;- {|r(NumberOfEdges,NumberOfReactions)||cor(NumberOfEdges,NumberOfReactions)|}.
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm17">
 <p> Run this query to plot the data with a fitted line: </p>
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q15">
 get_data(NumberOfEdges,NumberOfReactions), &lt;-qplot(NumberOfEdges,NumberOfReactions,geom=c("point","smooth"),xlab="Number of Edges", ylab="Number of Reactions").
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm18">
 <h2> We can include any Javascript, for example D3 </h2>
 
 <p> SWISH allows the inclusion of Javascript code, which
@@ -681,11 +695,11 @@ var links = [
 </script>
 </div>
 
-<div class="nb-cell markdown">
+<div class="nb-cell markdown" name="md1">
 ### The data access program for the Hive Plot
 </div>
 
-<div class="nb-cell program" data-background="true">
+<div class="nb-cell program" data-background="true" name="p11">
 :-use_module(library(pengines)).
 
 ridPathway(X):-
@@ -755,15 +769,15 @@ datatable_probelists_valuelists(D,P,Values,Sum):-
     sum_list(NumberValues,Sum).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm19">
 <p> To see the term that is used by the Javascript to make the hive plot run the following query. </p>
 </div>
 
-<div class="nb-cell query">
+<div class="nb-cell query" name="q16">
 ridPathway_hive('Pathway21',H).
 </div>
 
-<div class="nb-cell html">
+<div class="nb-cell html" name="htm20">
 <h1> Summary </h1>
 <p>
 Reactome Pengine is a weblogic API to query the human reactome.
@@ -775,7 +789,6 @@ Programs running in SWI-Prolog client applications enable full access to the pow
 Either of these options allow researchers to perform anaylis of data that requires querying the human reactome and integrating with other data sources.
 In fact it is possible to go further and build entire web applications, where The Pengine Reactome is a component part.
 </p>
-
 </div>
 
 </div>
