@@ -63,7 +63,7 @@ rdf(X,Y,Z).
 <p>
 In addition to the direct method of querying the RDF file using the Prolog semantic web library, a number of higher level predicates built on top of this library are also provided. 
  Often these higher level predicates give a more intuitive and compact view of the data. 
-  The full documentation for the API is <a href="http://localhost:4001">here</a>.
+  The full documentation for the API is <a href="https://apps.nms.kcl.ac.uk/reactome-pengine/documentation/doc/_CWD_/index.html">here</a>.
 </p>
 <p>
 Our model states that reactions are nodes on a graph. 
