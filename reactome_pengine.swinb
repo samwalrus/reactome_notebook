@@ -10,14 +10,14 @@
   In this note book we first briefly explain the data model of the underlying Reactome data set. 
   Secondly, we explain the data model that we have built into Reactome Pengine.
   We then explain where computations take place.
-  Next we give some example queries that illustrate the capabilies of Reactome Pengine in the context of a SWISH notebook, including graphical rendering, R integration and Javascript applications.
+  Next we give some example queries that illustrate the capabilities of Reactome Pengine in the context of a SWISH notebook, including graphical rendering, R integration and Javascript applications.
   Also note that further functionality of the Pengine Reactome can be utilised by building client applications in the full desktop version of SWI-Prolog.
-  The examples of functionalilty in this notebook are a fraction of the possible ways to use Reactome Pengine,
+  The examples of functionality in this notebook are a fraction of the possible ways to use Reactome Pengine,
   intended to illustrate calls to the API. 
 </p>
 <p>
   </p><ul>
-    <li>Note: To familise yourself with SWISH and Prolog see the examples in the toolbar menu.</li>
+    <li>Note: To familiarise yourself with SWISH and Prolog see the examples in the toolbar menu.</li>
     <li>Note: All queries to Reactome Pengine are logged.  </li>
     <li>Note: Academics Please cite Q </li>
 </ul>
@@ -25,7 +25,7 @@
 <h2> Underlying data model of Reactome</h2> 
 <p>The underlying data model is based on a RDF triple graph. 
   This is fully documented on the Reactome site: <a href="http://www.reactome.org/pages/documentation/data-model/"> Reactome Data Model</a>.
-  In brief, the principle type of enitity in Reactome is the reaction and
+  In brief, the principle type of entity in Reactome is the reaction and
   reactions have inputs and output entities. Reactions are also optionally controlled.
   Each biological entity such as proteins, small molecules, and reactions are given an ID. 
   Entities also include 'Complexes' and 'Protein sets'. 
@@ -70,7 +70,7 @@ Our model states that reactions are nodes on a graph.
 There are edges between these nodes in two cases:
   </p><ol>
     <li>
-When an output of a reaction is an input to another reaction. This edge type we name 'preceeds'.
+When an output of a reaction is an input to another reaction. This edge type we name 'precedes'.
     </li>
     <li>
       An output of a reaction <i>r1</i> is a control of another reaction <i>r2</i>. 
@@ -115,8 +115,8 @@ member(ridReaction_ridLink_type_ridReaction(R1, 'Complex452', 'ACTIVATION', R2),
 <div class="nb-cell html" name="htm21">
 <h2>Converting between Reactome Identifiers and familiar names/identifiers </h2>
 <p>In order to convert between the Reactome identifiers and the common names of entities you can use the rid_name/2 predicate. </p>
-<p>You may also want to convert Reactome protien identifiers to  Uniprot identifiers, for this you can use ridProtein_uniprotId/2 </p>
-<p>Both of these predicates are full relations so a user can query in both directions and use the predicate to generate examples or to check that a pair are releated </p>
+<p>You may also want to convert Reactome protein identifiers to  Uniprot identifiers, for this you can use ridProtein_uniprotId/2 </p>
+<p>Both of these predicates are full relations so a user can query in both directions and use the predicate to generate examples or to check that a pair are related </p>
 </div>
 
 <div class="nb-cell query" name="q17">
@@ -135,7 +135,7 @@ reactome_server(S),pengine_rpc(S,ridProtein_uniprotId('Protein1',UniprotId),[]).
 </p>
 <p>
   A useful feature of Prolog is that if predicate definitions are restricted to the subset of pure Prolog, then it is possible to reason about the solutions to queries logically.
-  This is useful for <a href="https://www.complang.tuwien.ac.at/ulrich/papers/PDF/1999-ppdp-corr.pdf">debugging </a>and applying certain advanced machine learning algorithims for example <a href="https://en.wikipedia.org/wiki/Inductive_logic_programming">Inductive Logic Programming.</a>
+  This is useful for <a href="https://www.complang.tuwien.ac.at/ulrich/papers/PDF/1999-ppdp-corr.pdf">debugging </a>and applying certain advanced machine learning algorithms for example <a href="https://en.wikipedia.org/wiki/Inductive_logic_programming">Inductive Logic Programming.</a>
 </p>
 <p>
   In the following program we name the previous query as <i>pathway_with_complex452_activation/1</i>.
@@ -178,16 +178,26 @@ small_pathway(P).
 small_pathway_with_complex452_activation(P).
 </div>
 
+<div class="nb-cell html" name="htm22">
+<h2> Finding the Protein Complex that contains the Sonic the Hedgehog Protein </h2>
+
+<p> The Sonic the HedgeHog (SHH) protein is well known. If we want to query Reactome Pengine to find what Protein complex it takes part in we can use the following query. </p>
+</div>
+
+<div class="nb-cell query" name="q19">
+reactome_server(S),pengine_rpc(S,(rid_name(RidSonic,"SHH"),ridProteinSet_component(RidProteinSet,RidSonic),ridComplex_component(RidComplex,RidProteinSet),rid_name(RidComplex,ComplexName)),[]).
+</div>
+
 <div class="nb-cell html" name="htm8">
 <h2> Where the execution of our programs takes place</h2>
 <p> As we are seeing, using Prolog allows us to specify programs and algorithms, not just queries (in contrast to SQL, Cypher, REST APIs and SPARQL).</p>
 
 <p> When using SWISH our programs are either executed on Reactome Pengine or on the 
 SWISH server (itself a pengine application).
-When using the desktop version of SWI Prolog, programs are either exectued on Reactome Pengine or your local machine.
+When using the desktop version of SWI Prolog, programs are either executed on Reactome Pengine or your local machine.
 
 The idea is that small programs can be brought to the large data, rather than needing to transfer large datasets to a users machine.
-This, alongside the abilty to send programs to the pengine, makes for an extremly flexible logical API.
+This, alongside the ability to send programs to the pengine, makes for an extremely flexible logical API.
 
   Both SWISH and Reactome Pengine have a time limit on queries. 
   
@@ -236,7 +246,7 @@ path_from_to(Path,From,To).
 </div>
 
 <div class="nb-cell html" name="htm9">
-<p>The following query performs a breadth first search to find the shortest paths (click next to see succesive results): </p>
+<p>The following query performs a breadth first search to find the shortest paths (click next to see successive results): </p>
 </div>
 
 <div class="nb-cell query" name="q8">
@@ -249,10 +259,10 @@ length(Path,_),path_from_to(Path,From,To).
 In Prolog we can describe lists declaratively,
 so for instance, we can write a definite clause grammar (<a href="https://www.metalevel.at/prolog/dcg">DCG</a>) for paths. 
 These have a slightly different syntax to standard Prolog predicates, but can also be sent to The Pengine Reactome.
-For simplicity of presenentation the DCG in the example below runs on the SWISH server.
+For simplicity of presentation the DCG in the example below runs on the SWISH server.
 This example finds paths that pass through a reaction and that satisfy a user defined rule.
 In this case we simply ask for a path that passes through a reaction that has CTDP1 (Protein11301) as an input. 
-Additioinally we add 'Path=[_,_|_].' to the query.
+Additionally we add 'Path=[_,_|_].' to the query.
 This serves as a constraint to find paths with at least two steps.
 </p>
 </div>
@@ -406,7 +416,7 @@ reactome_server(_S),length(_List,12050),append([_|_List],_Rest,_All),url_datatab
 <div class="nb-cell html" name="htm15">
 <h2> R Integration </h2>
 <p> The R programming language is built into SWISH, which means that 
-   we can perform statistical analysis using familar tools. For full details see <a href="http://swish.swi-prolog.org/example/Rserve.swinb#">here.</a> 
+   we can perform statistical analysis using familiar tools. For full details see <a href="http://swish.swi-prolog.org/example/Rserve.swinb#">here.</a> 
   In the example below we query the number of edges in a set of pathways and the number of reactions in the same set.
   We then use R to calculate the correlation, fit a line and plot these using R's qplot function.</p>
 </div>
@@ -466,8 +476,8 @@ get_data(NumberOfEdges,NumberOfReactions), &lt;-qplot(NumberOfEdges,NumberOfReac
   These features are mapped to the geometric placement of nodes in the graph.
   The first feature is based on the network properties (the degree) of the reaction nodes.
   A reaction is assigned to one of three categories:
-</p><ol><li>Reactions that have a larger outdeggree than indeggree</li><li>
-  Reactions that have a larger indeggree than outdegree.</li><li>
+</p><ol><li>Reactions that have a larger outdeggree than indegree</li><li>
+  Reactions that have a larger indegree than outdegree.</li><li>
   Reactions that have an equal in and outdegree.</li></ol>
 <p>
   This first feature is illustrated by placing nodes on one of three axes: 
@@ -478,14 +488,14 @@ get_data(NumberOfEdges,NumberOfReactions), &lt;-qplot(NumberOfEdges,NumberOfReac
 <p>
   For the second feature, we use the data of gene expression that we have scraped from the GEO website and perform the following steps:
 </p><ol><li>Query Reactome Pengine for the set of probes that code for the set of proteins that are inputs for each reaction in the graph.
-</li><li> For each probe we retrieve the expression levels from the scaped GEO data.
+</li><li> For each probe we retrieve the expression levels from the scraped GEO data.
 </li><li> Calculate the sum of the expression levels of the probes of each reaction.
-</li><li> Rescale the sumations to be between 0 and 1.
+</li><li> Rescale the summations to be between 0 and 1.
  </li></ol> 
   This second feature is illustrated by the distance of the reaction node from the centre of the graph.
   
-  <!--As our graph of a pathway is directed we indicate this with edge color.
-  When an edge color is the same as a node color, this indicates that edge is from that node and to the connecting node.
+  <!--As our graph of a pathway is directed we indicate this with edge colour.
+  When an edge colour is the same as a node colour, this indicates that edge is from that node and to the connecting node.
   -->
  <p></p>
 
@@ -781,12 +791,12 @@ ridPathway_hive('Pathway21',H).
 <h1> Summary </h1>
 <p>
 Reactome Pengine is a weblogic API to query the human reactome.
-It provides both raw RDF data access and a set of built in predicates to facilate this.
+It provides both raw RDF data access and a set of built in predicates to facilitate this.
 The pengine technology allows users to send entire programs to the API to augment the built in data and predicates.
 It can do this from a local client program, or as here in  a cloud hosted SWISH notebook.
 Programs hosted on SWISH notebooks allow for easy sharing and the ability to render query solutions graphically.
 Programs running in SWI-Prolog client applications enable full access to the power of Prolog - including system calls and they also maintain privacy of local computations. 
-Either of these options allow researchers to perform anaylis of data that requires querying the human reactome and integrating with other data sources.
+Either of these options allow researchers to perform analysis of data that requires querying the human reactome and integrating with other data sources.
 In fact it is possible to go further and build entire web applications, where The Pengine Reactome is a component part.
 </p>
 </div>
