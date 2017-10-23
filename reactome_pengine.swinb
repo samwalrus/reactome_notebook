@@ -797,7 +797,7 @@ It can do this from a local client program, or as here in  a cloud hosted SWISH 
 Programs hosted on SWISH notebooks allow for easy sharing and the ability to render query solutions graphically.
 Programs running in SWI-Prolog client applications enable full access to the power of Prolog - including system calls and they also maintain privacy of local computations. 
 Either of these options allow researchers to perform analysis of data that requires querying the human reactome and integrating with other data sources.
-In fact it is possible to go further and build entire web applications, where The Pengine Reactome is a component part.
+In fact it is possible to go further and build entire web applications, where Reactome Pengine is a component part.
 </p>
 </div>
 
