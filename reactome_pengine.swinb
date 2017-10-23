@@ -731,7 +731,6 @@ edgelist_hive(Edges,hive(Terms,NewEdges)):-
     maplist(graph_node_group(NewEdges),Pairs,Groups),
     maplist(pair_probelist,Pairs,Probelists),
     url_datatable(_U,Table),
-    %this needs to be changed for probelists plural
     maplist(datatable_probelists_valuelists(Table),Probelists,_Valueslists,Sums),
     max_list(Sums,Max),
     maplist(divide(Max),Sums,Scaled),
