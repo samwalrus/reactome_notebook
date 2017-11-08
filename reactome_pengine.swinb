@@ -256,6 +256,9 @@ length(Path,_),path_from_to(Path,From,To).
 </div>
 
 <div class="nb-cell html" name="htm10">
+
+<h1> Advanced Usage </h1>
+<hr>
 <h2>7. Definite Clause Grammars </h2>
 <p>
 In Prolog we can describe lists declaratively,
