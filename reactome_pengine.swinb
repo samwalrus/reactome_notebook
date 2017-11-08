@@ -7,7 +7,7 @@
 <h2> Introduction</h2>
 
 <p>
-  In this note book we first briefly explain the data model of the underlying Reactome data set. 
+  In this notebook we first briefly explain the data model of the underlying Reactome data set. 
   Secondly, we explain the data model that we have built into Reactome Pengine.
   We then explain where computations take place.
   Next we give some example queries that illustrate the capabilities of Reactome Pengine in the context of a SWISH notebook, including graphical rendering, R integration and Javascript applications.
