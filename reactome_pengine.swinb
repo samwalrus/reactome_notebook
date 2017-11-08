@@ -4,7 +4,7 @@
 <h1>
   Reactome Pengine Examples
 </h1>
-<h2> Introduction</h2>
+<h2> 1. Introduction</h2>
 
 <p>
   In this note book we first briefly explain the data model of the underlying Reactome data set. 
@@ -22,7 +22,7 @@
     <li>Note: Academics Please cite Q </li>
 </ul>
 <p></p>
-<h2> Underlying data model of Reactome</h2> 
+<h2> 2. Underlying data model of Reactome</h2> 
 <p>The underlying data model is based on a RDF triple graph. 
   This is fully documented on the Reactome site: <a href="http://www.reactome.org/pages/documentation/data-model/"> Reactome Data Model</a>.
   In brief, the principle type of entity in Reactome is the reaction and
@@ -113,7 +113,7 @@ member(ridReaction_ridLink_type_ridReaction(R1, 'Complex452', 'ACTIVATION', R2),
 </div>
 
 <div class="nb-cell html" name="htm21">
-<h2>Converting between Reactome Identifiers and familiar names/identifiers </h2>
+<h2>3. Converting between Reactome Identifiers and familiar names/identifiers </h2>
 <p>In order to convert between the Reactome identifiers and the common names of entities you can use the rid_name/2 predicate. </p>
 <p>You may also want to convert Reactome protein identifiers to  Uniprot identifiers, for this you can use ridProtein_uniprotId/2 </p>
 <p>Both of these predicates are full relations so a user can query in both directions and use the predicate to generate examples or to check that a pair are related </p>
@@ -128,7 +128,7 @@ reactome_server(S),pengine_rpc(S,ridProtein_uniprotId('Protein1',UniprotId),[]).
 </div>
 
 <div class="nb-cell html" name="htm6">
-<h2> Naming and reuse of queries </h2>
+<h2>4. Naming and reuse of queries </h2>
 <p> In Prolog a query is a call to a predicate (or as we have seen a conjunction of predicates). 
   As with any Prolog program we can reuse a query and assign it a name by writing a new predicate definition containing the query.
   This is useful for complex queries as we can decompose the complexity into small parts.
@@ -179,7 +179,7 @@ small_pathway_with_complex452_activation(P).
 </div>
 
 <div class="nb-cell html" name="htm22">
-<h2> Finding the Protein Complex that contains the Sonic the Hedgehog Protein </h2>
+<h2> 5. Finding the Protein Complex that contains the Sonic the Hedgehog Protein </h2>
 
 <p> The Sonic the HedgeHog (SHH) protein is well known. If we want to query Reactome Pengine to find what Protein complex it takes part in we can use the following query. </p>
 </div>
@@ -189,7 +189,7 @@ reactome_server(S),pengine_rpc(S,(rid_name(RidSonic,"SHH"),ridProteinSet_compone
 </div>
 
 <div class="nb-cell html" name="htm8">
-<h2> Where the execution of our programs takes place</h2>
+<h2> 6. Where the execution of our programs takes place</h2>
 <p> As we are seeing, using Prolog allows us to specify programs and algorithms, not just queries (in contrast to SQL, Cypher, REST APIs and SPARQL).</p>
 
 <p> When using SWISH our programs are either executed on Reactome Pengine or on the 
@@ -254,7 +254,7 @@ length(Path,_),path_from_to(Path,From,To).
 </div>
 
 <div class="nb-cell html" name="htm10">
-<h2> Definite Clause Grammars </h2>
+<h2>7. Definite Clause Grammars </h2>
 <p>
 In Prolog we can describe lists declaratively,
 so for instance, we can write a definite clause grammar (<a href="https://www.metalevel.at/prolog/dcg">DCG</a>) for paths. 
@@ -288,7 +288,7 @@ path_from_to(Path,From,To), phrase(okPath,Path), Path=[_,_|_].
 </div>
 
 <div class="nb-cell html" name="htm11">
-<h2> Rendering the query results</h2>
+<h2> 8. Rendering the query results</h2>
 <h3> Graphviz </h3>
 <p>
   So far, in this tutorial, we have been representing the reaction graph as lists and terms.
@@ -358,7 +358,7 @@ chart(C).
 </div>
 
 <div class="nb-cell html" name="htm13">
-<h2>Scraping the web and integrating with Reactome Pengine</h2>
+<h2> 9. Scraping the web and integrating with Reactome Pengine</h2>
 <p> Scraping the traditional HTML web for data makes it possible to combine many existing remote data sites with Reactome Pengine.
   Web scraping inside SWISH is currently limited to using the predicate <a href="http://www.swi-prolog.org/pldoc/man?predicate=load_html/3">load_html/3</a>, whereas
   if you build a client application with the full version of SWI Prolog then predicates such as <a href="http://www.swi-prolog.org/pldoc/doc_for?object=http_open/3"> http_open/3</a>, are available.
@@ -414,7 +414,7 @@ reactome_server(_S),length(_List,12050),append([_|_List],_Rest,_All),url_datatab
 </div>
 
 <div class="nb-cell html" name="htm15">
-<h2> R Integration </h2>
+<h2> 10. R Integration </h2>
 <p> The R programming language is built into SWISH, which means that 
    we can perform statistical analysis using familiar tools. For full details see <a href="http://swish.swi-prolog.org/example/Rserve.swinb#">here.</a> 
   In the example below we query the number of edges in a set of pathways and the number of reactions in the same set.
@@ -458,7 +458,7 @@ get_data(NumberOfEdges,NumberOfReactions), &lt;-qplot(NumberOfEdges,NumberOfReac
 </div>
 
 <div class="nb-cell html" name="htm18">
-<h2> We can include any Javascript, for example D3 </h2>
+<h2> 11. We can include any Javascript, for example D3 </h2>
 
 <p> SWISH allows the inclusion of Javascript code, which
   means we can use libraries such as <a href="https://d3js.org/">d3</a>.
