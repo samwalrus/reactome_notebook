@@ -4,7 +4,7 @@
 <h1>
   Reactome Pengine Examples
 </h1>
-<h2> 1. Introduction</h2>
+<h2> Introduction</h2>
 
 <p>
   In this note book we first briefly explain the data model of the underlying Reactome data set. 
@@ -22,7 +22,7 @@
     <li>Note: Academics Please cite Q </li>
 </ul>
 <p></p>
-<h2> 2. Underlying data model of Reactome</h2> 
+<h2> 1. Underlying data model of Reactome</h2> 
 <p>The underlying data model is based on a RDF triple graph. 
   This is fully documented on the Reactome site: <a href="http://www.reactome.org/pages/documentation/data-model/"> Reactome Data Model</a>.
   In brief, the principle type of entity in Reactome is the reaction and
@@ -59,7 +59,7 @@ rdf(X,Y,Z).
 </div>
 
 <div class="nb-cell html" name="htm3">
-<h2> Our Reactome Pengine data model</h2>
+<h2> 2. Our Reactome Pengine data model</h2>
 <p>
 In addition to the direct method of querying the RDF file using the Prolog semantic web library, a number of higher level predicates built on top of this library are also provided. 
  Often these higher level predicates give a more intuitive and compact view of the data. 
@@ -113,7 +113,7 @@ member(ridReaction_ridLink_type_ridReaction(R1, 'Complex452', 'ACTIVATION', R2),
 </div>
 
 <div class="nb-cell html" name="htm21">
-<h2>3. Converting between Reactome Identifiers and familiar names/identifiers </h2>
+<h2> 3. Converting between Reactome Identifiers and familiar names/identifiers </h2>
 <p>In order to convert between the Reactome identifiers and the common names of entities you can use the rid_name/2 predicate. </p>
 <p>You may also want to convert Reactome protein identifiers to  Uniprot identifiers, for this you can use ridProtein_uniprotId/2 </p>
 <p>Both of these predicates are full relations so a user can query in both directions and use the predicate to generate examples or to check that a pair are related </p>
@@ -128,7 +128,7 @@ reactome_server(S),pengine_rpc(S,ridProtein_uniprotId('Protein1',UniprotId),[]).
 </div>
 
 <div class="nb-cell html" name="htm6">
-<h2>4. Naming and reuse of queries </h2>
+<h2> 4. Naming and reuse of queries </h2>
 <p> In Prolog a query is a call to a predicate (or as we have seen a conjunction of predicates). 
   As with any Prolog program we can reuse a query and assign it a name by writing a new predicate definition containing the query.
   This is useful for complex queries as we can decompose the complexity into small parts.
