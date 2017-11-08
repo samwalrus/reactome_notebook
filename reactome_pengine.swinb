@@ -127,8 +127,18 @@ reactome_server(S),pengine_rpc(S,rid_name('Complex452',Name),[]).
 reactome_server(S),pengine_rpc(S,ridProtein_uniprotId('Protein1',UniprotId),[]).
 </div>
 
+<div class="nb-cell html" name="htm22">
+<h2> 4. Finding the Protein Complex that contains the Sonic the Hedgehog Protein </h2>
+
+<p> The Sonic the HedgeHog (SHH) protein is well known. If we want to query Reactome Pengine to find what Protein complex it takes part in we can use the following query. </p>
+</div>
+
+<div class="nb-cell query" name="q19">
+reactome_server(S),pengine_rpc(S,(rid_name(RidSonic,"SHH"),ridProteinSet_component(RidProteinSet,RidSonic),ridComplex_component(RidComplex,RidProteinSet),rid_name(RidComplex,ComplexName)),[]).
+</div>
+
 <div class="nb-cell html" name="htm6">
-<h2> 4. Naming and reuse of queries </h2>
+<h2> 5. Naming and reuse of queries </h2>
 <p> In Prolog a query is a call to a predicate (or as we have seen a conjunction of predicates). 
   As with any Prolog program we can reuse a query and assign it a name by writing a new predicate definition containing the query.
   This is useful for complex queries as we can decompose the complexity into small parts.
@@ -178,15 +188,7 @@ small_pathway(P).
 small_pathway_with_complex452_activation(P).
 </div>
 
-<div class="nb-cell html" name="htm22">
-<h2> 5. Finding the Protein Complex that contains the Sonic the Hedgehog Protein </h2>
 
-<p> The Sonic the HedgeHog (SHH) protein is well known. If we want to query Reactome Pengine to find what Protein complex it takes part in we can use the following query. </p>
-</div>
-
-<div class="nb-cell query" name="q19">
-reactome_server(S),pengine_rpc(S,(rid_name(RidSonic,"SHH"),ridProteinSet_component(RidProteinSet,RidSonic),ridComplex_component(RidComplex,RidProteinSet),rid_name(RidComplex,ComplexName)),[]).
-</div>
 
 <div class="nb-cell html" name="htm8">
 <h2> 6. Where the execution of our programs takes place</h2>
