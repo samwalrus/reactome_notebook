@@ -463,12 +463,12 @@ get_data(NumberOfEdges,NumberOfReactions), &lt;-qplot(NumberOfEdges,NumberOfReac
 </div>
 
 <div class="nb-cell html" name="htm18">
-<h2> 11. We can include any Javascript, for example D3 </h2>
+<h2> 11. Integrating with Javascript (and the D3 library) </h2>
 
 <p> SWISH allows the inclusion of Javascript code, which
   means we can use libraries such as <a href="https://d3js.org/">d3</a>.
   Therefore, we can make interactive charts and web applications with Reactome data inside a SWISH notebook.
-  To see the Javascript code double click this cell and scroll down to the 'script' tags.
+  To see the Javascript code double click this text and scroll down to the 'script' tags.
   
 </p>
 <p>
@@ -794,12 +794,12 @@ ridPathway_hive('Pathway21',H).
 <div class="nb-cell html" name="htm20">
 <h1> Summary </h1>
 <p>
-Reactome Pengine is a weblogic API to query the human reactome.
-It provides both raw RDF data access and a set of built in predicates to facilitate this.
+Reactome Pengine is a web-logic API to query the human reactome.
+It provides both raw RDF data access and a set of built-in predicates to facilitate this.
 The pengine technology allows users to send entire programs to the API to augment the built in data and predicates.
-It can do this from a local client program, or as here in  a cloud hosted SWISH notebook.
+It can do this from a local client program, or as shown here, in  a cloud hosted SWISH notebook.
 Programs hosted on SWISH notebooks allow for easy sharing and the ability to render query solutions graphically.
-Programs running in SWI-Prolog client applications enable full access to the power of Prolog - including system calls and they also maintain privacy of local computations. 
+In contrast, programs running in SWI-Prolog client applications have access to the full power of Prolog &mdash; including system calls and they also maintain privacy of local computations. 
 Either of these options allow researchers to perform analysis of data that requires querying the human reactome and integrating with other data sources.
 In fact it is possible to go further and build entire web applications, where Reactome Pengine is a component part.
 </p>
