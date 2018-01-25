@@ -22,6 +22,11 @@
     <li>Note: Academics Please cite Q </li>
 </ul>
 <p></p>
+
+<hr style = 'background-color:#000000; color:#000000; height:2px; lineheight:2;' />
+<h1> Section A: Basic Usage </h1>
+<hr style = 'background-color:#000000; color:#000000; height:2px; lineheight:2;' />
+
 <h2> 1. Underlying data model of Reactome</h2> 
 <p>The underlying data model is based on a RDF triple graph. 
   This is fully documented on the Reactome site: <a href="http://www.reactome.org/pages/documentation/data-model/"> Reactome Data Model</a>.
@@ -116,7 +121,7 @@ member(ridReaction_ridLink_type_ridReaction(R1, 'Complex452', 'ACTIVATION', R2),
 <h2> 3. Converting between Reactome Identifiers and familiar names/identifiers </h2>
 <p>In order to convert between the Reactome identifiers and the common names of entities you can use the rid_name/2 predicate. </p>
 <p>You may also want to convert Reactome protein identifiers to  Uniprot identifiers, for this you can use ridProtein_uniprotId/2 </p>
-<p>Both of these predicates are full relations so a user can query in both directions and use the predicate to generate examples or to check that a pair are related </p>
+<p>Both of these predicates are full relations so a user can query in both directions and use the predicate to generate examples or to check that a pair are related: </p>
 </div>
 
 <div class="nb-cell query" name="q17">
@@ -257,7 +262,7 @@ length(Path,_),path_from_to(Path,From,To).
 
 <div class="nb-cell html" name="htm10">
 <hr style = 'background-color:#000000; color:#000000; height:2px; lineheight:2;' />
-<h1> Advanced Usage </h1>
+<h1> Section B: Advanced Usage </h1>
 <hr style = 'background-color:#000000; color:#000000; height:2px; lineheight:2;' />
 <h2>7. Definite Clause Grammars </h2>
 <p>
