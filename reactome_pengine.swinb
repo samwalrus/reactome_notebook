@@ -22,6 +22,7 @@
     <li>Note: Academics Please cite Q </li>
 </ul>
 <p></p>
+
 <h2> 1. Underlying data model of Reactome</h2> 
 <p>The underlying data model is based on a RDF triple graph. 
   This is fully documented on the Reactome site: <a href="http://www.reactome.org/pages/documentation/data-model/"> Reactome Data Model</a>.
@@ -116,7 +117,7 @@ member(ridReaction_ridLink_type_ridReaction(R1, 'Complex452', 'ACTIVATION', R2),
 <h2> 3. Converting between Reactome Identifiers and familiar names/identifiers </h2>
 <p>In order to convert between the Reactome identifiers and the common names of entities you can use the rid_name/2 predicate. </p>
 <p>You may also want to convert Reactome protein identifiers to  Uniprot identifiers, for this you can use ridProtein_uniprotId/2 </p>
-<p>Both of these predicates are full relations so a user can query in both directions and use the predicate to generate examples or to check that a pair are related </p>
+<p>Both of these predicates are full relations so a user can query in both directions and use the predicate to generate examples or to check that a pair are related: </p>
 </div>
 
 <div class="nb-cell query" name="q17">
@@ -257,7 +258,245 @@ length(Path,_),path_from_to(Path,From,To).
 
 <div class="nb-cell html" name="htm10">
 <hr style = 'background-color:#000000; color:#000000; height:2px; lineheight:2;' />
-<h1> Advanced Usage </h1>
+<h1> Section A: Basic Usage </h1>
+<hr style = 'background-color:#000000; color:#000000; height:2px; lineheight:2;' />
+
+<h2> 1. Underlying data model of Reactome</h2> 
+<p>The underlying data model is based on a RDF triple graph. 
+  This is fully documented on the Reactome site: <a href="http://www.reactome.org/pages/documentation/data-model/"> Reactome Data Model</a>.
+  In brief, the principle type of entity in Reactome is the reaction and
+  reactions have inputs and output entities. Reactions are also optionally controlled.
+  Each biological entity such as proteins, small molecules, and reactions are given an ID. 
+  Entities also include 'Complexes' and 'Protein sets'. 
+  A complex is a set of molecular entities that have combined together. 
+  A protein set is when a set of proteins can perform the same biological function.
+  Both complexes and protein sets can also themselves be composed of complexes and protein sets.
+  We can query this data directly with the <i>rdf</i>/3 predicate. 
+  To see how this is done click the blue play triangle in the cell below. 
+  You can then find further solutions, with 'next'.
+</p>
+</div>
+
+<div class="nb-cell program" data-background="true" name="p1">
+:-use_module(library(pengines)).
+reactome_server('https://apps.nms.kcl.ac.uk/reactome-pengine').
+rdf(X,Y,Z):-
+    reactome_server(S),
+    pengine_rpc(S,rdf(X,Y,Z),[]).
+</div>
+
+<div class="nb-cell query" name="q1">
+rdf(X,Y,Z).
+</div>
+
+<div class="nb-cell html" name="htm2">
+<p>
+  The semantic web library of prolog has other access predicates to query this data,
+  for example <i>rdf_has/3</i>.
+  For more details see the documentation <a href="http://www.swi-prolog.org/pldoc/doc_for?object=section(%27packages/semweb.html%27)"> here</a>.
+</p>
+</div>
+
+<div class="nb-cell html" name="htm3">
+<h2> 2. Our Reactome Pengine data model</h2>
+<p>
+In addition to the direct method of querying the RDF file using the Prolog semantic web library, a number of higher level predicates built on top of this library are also provided. 
+ Often these higher level predicates give a more intuitive and compact view of the data. 
+  The full documentation for the API is <a href="https://apps.nms.kcl.ac.uk/reactome-pengine/documentation/doc/_CWD_/index.html">here</a>.
+</p>
+<p>
+Our model states that reactions are nodes on a graph. 
+There are edges between these nodes in two cases:
+  </p><ol>
+    <li>
+When an output of a reaction is an input to another reaction. This edge type we name 'precedes'.
+    </li>
+    <li>
+      An output of a reaction <i>r1</i> is a control of another reaction <i>r2</i>. 
+      This results in a number of different edge types depending on how the output of <i>r1</i> controls <i>r2</i>. 
+      The types are: 
+      <ul>
+        <li>ACTIVATION</li><li> ACTIVATION-ALLOSTERIC</li><li> INHIBITION</li><li>INHIBITION-ALLOSTERIC</li><li>INHIBITION-COMPETITIVE</li><li>INHIBITION-NONCOMPETITIVE</li>
+      </ul>
+</li></ol>
+We can view this graph for an individual pathway using <i>ridPathway_links/2</i> shown below.
+We can use this predicate in all directions, 
+i.e 1) enumerate pathways and link pairs (neither argument is instantiated), 2) find the links for a particular pathway (pathway argument is instantiated), 
+3) see which pathway has a set of links (links argument is instantiated), or 4) check whether a given pathway has a given set of links (both arguments are instantiated).
+Most predicates in the API are capable of multi-directional queries. 
+Details are given in the Reactome Pengine API documentation.
+    <p></p>
+</div>
+
+<div class="nb-cell program" data-background="true" name="p2">
+ridPathway_links(P,Ls):-
+    reactome_server(S),
+    pengine_rpc(S,ridPathway_links(P,Ls)).
+</div>
+
+<div class="nb-cell html" name="htm4">
+<p> Generate pathways and a list of links in the pathway using: </p>
+</div>
+
+<div class="nb-cell query" name="q2">
+ridPathway_links(P,L).
+</div>
+
+<div class="nb-cell html" name="htm5">
+<p> Generate pathways that have an activation link where the activating entity is 'Complex452' using: </p>
+</div>
+
+<div class="nb-cell query" name="q3">
+ridPathway_links(P,_Ls),
+member(ridReaction_ridLink_type_ridReaction(R1, 'Complex452', 'ACTIVATION', R2),_Ls).
+</div>
+
+<div class="nb-cell html" name="htm21">
+<h2> 3. Converting between Reactome Identifiers and familiar names/identifiers </h2>
+<p>In order to convert between the Reactome identifiers and the common names of entities you can use the rid_name/2 predicate. </p>
+<p>You may also want to convert Reactome protein identifiers to  Uniprot identifiers, for this you can use ridProtein_uniprotId/2 </p>
+<p>Both of these predicates are full relations so a user can query in both directions and use the predicate to generate examples or to check that a pair are related: </p>
+</div>
+
+<div class="nb-cell query" name="q17">
+reactome_server(S),pengine_rpc(S,rid_name('Complex452',Name),[]).
+</div>
+
+<div class="nb-cell query" name="q18">
+reactome_server(S),pengine_rpc(S,ridProtein_uniprotId('Protein1',UniprotId),[]).
+</div>
+
+<div class="nb-cell html" name="htm22">
+<h2> 4. Finding the Protein Complex that contains the Sonic the Hedgehog Protein </h2>
+
+<p> The Sonic the HedgeHog (SHH) protein is well known. If we want to query Reactome Pengine to find what Protein complex it takes part in we can use the following query. </p>
+</div>
+
+<div class="nb-cell query" name="q19">
+reactome_server(S),pengine_rpc(S,(rid_name(RidSonic,"SHH"),ridProteinSet_component(RidProteinSet,RidSonic),ridComplex_component(RidComplex,RidProteinSet),rid_name(RidComplex,ComplexName)),[]).
+</div>
+
+<div class="nb-cell html" name="htm6">
+<h2> 5. Naming and reuse of queries </h2>
+<p> In Prolog a query is a call to a predicate (or as we have seen a conjunction of predicates). 
+  As with any Prolog program we can reuse a query and assign it a name by writing a new predicate definition containing the query.
+  This is useful for complex queries as we can decompose the complexity into small parts.
+</p>
+<p>
+  A useful feature of Prolog is that if predicate definitions are restricted to the subset of pure Prolog, then it is possible to reason about the solutions to queries logically.
+  This is useful for <a href="https://www.complang.tuwien.ac.at/ulrich/papers/PDF/1999-ppdp-corr.pdf">debugging </a>and applying certain advanced machine learning algorithms for example <a href="https://en.wikipedia.org/wiki/Inductive_logic_programming">Inductive Logic Programming.</a>
+</p>
+<p>
+  In the following program we name the previous query as <i>pathway_with_complex452_activation/1</i>.
+  This predicate is true if P is instantiated with a pathway that has an activation edge where the activation entity is <i>complex452</i>.
+  We also define a predicate <i>small_pathway/1</i> for pathways with less than 35 edges. 
+  We then define a new predicate, reusing <i>pathway_with_complex452_activation/1</i> and <i>small_pathway/1</i> to define <i>small_pathway_with_complex452_activation/1</i>.
+  As this new predicate is made from the composition of <i>pathway_with_complex452_activation/1</i> and <i>small_pathway/1</i>, we can logically reason that the new predicate will be true for the intersection of the answers to the original two predicates.
+ 
+</p>
+</div>
+
+<div class="nb-cell program" name="p3">
+pathway_with_complex452_activation(P):-
+    ridPathway_links(P,Ls),
+    member(ridReaction_ridLink_type_ridReaction(_R1, 'Complex452', 'ACTIVATION', _R2),Ls).
+
+small_pathway(P):-
+    ridPathway_links(P,L),
+    length(L,S),
+    S&lt;35.
+
+small_pathway_with_complex452_activation(P):-
+    small_pathway(P),
+    pathway_with_complex452_activation(P).
+</div>
+
+<div class="nb-cell html" name="htm7">
+<p> Running these three queries allows you to see that the answers to the third query is the intersection of the answer to the first two queries as we expected.</p>
+</div>
+
+<div class="nb-cell query" name="q4">
+pathway_with_complex452_activation(P).
+</div>
+
+<div class="nb-cell query" name="q5">
+small_pathway(P).
+</div>
+
+<div class="nb-cell query" name="q6">
+small_pathway_with_complex452_activation(P).
+</div>
+
+
+
+<div class="nb-cell html" name="htm8">
+<h2> 6. Where the execution of our programs takes place</h2>
+<p> As we are seeing, using Prolog allows us to specify programs and algorithms, not just queries (in contrast to SQL, Cypher, REST APIs and SPARQL).</p>
+
+<p> When using SWISH our programs are either executed on Reactome Pengine or on the 
+SWISH server (itself a pengine application).
+When using the desktop version of SWI Prolog, programs are either executed on Reactome Pengine or your local machine.
+
+The idea is that small programs can be brought to the large data, rather than needing to transfer large datasets to a users machine.
+This, alongside the ability to send programs to the pengine, makes for an extremely flexible logical API.
+
+  Both SWISH and Reactome Pengine have a time limit on queries. 
+  
+So far we have made simple queries of Reactome Pengine, and executed our programs in SWISH.
+In order to reduce the data transfer, and to send a program to the Pengine Reactome we use the 3rd argument of <i>pengine_rpc/3</i>.
+  
+</p><p>
+Here we write a program to find a path on the graph of reactions across the whole Reactome.
+  The predicate <i>path_program/1</i> returns the program we wish to run, as a list of clauses.
+  The predicate <i>path_from_to/3</i> retrieves the server address and program and sends this, along with the query, to Reactome Pengine.
+The identified path is then returned.
+</p>
+<p>
+To perform the same query without using Reactome Pengine the entire database would need to be downloaded.
+</p>
+</div>
+
+<div class="nb-cell program" data-background="true" name="p4">
+:-use_module(library(pengines)).
+
+
+path_program(Program):-
+    Program=[
+            (:- meta_predicate path(2,?,?,?)),
+            (:- meta_predicate path(2,?,?,?,+)),
+            (graph_path_from_to(P_2,Path,From,To):-path(P_2,Path,From,To)),
+            (path(R_2, [X0|Ys], X0,X):-path(R_2, Ys, X0,X, [X0])),
+            (path(_R_2, [], X,X, _)),
+            (path(R_2, [X1|Ys], X0,X, Xs) :- call(R_2, X0,X1),non_member(X1, Xs),path(R_2, Ys, X1,X, [X1|Xs])),
+            (non_member(_E, [])),
+            (non_member(E, [X|Xs]) :- dif(E,X),non_member(E, Xs)),
+            ( e(R1,R2):-ridReaction_ridLink_type_ridReaction(R1,_,_,R2)) %this makes a two place edge term
+            ].
+
+
+%Send a program and a query to the pengine reactome and return the result.
+path_from_to(Path,From,To):-
+    reactome_server(Server),
+    path_program(Program),
+    Query=graph_path_from_to(e,Path,From,To),
+    pengine_rpc(Server,Query,[src_list(Program)]).
+</div>
+
+<div class="nb-cell query" name="q7">
+path_from_to(Path,From,To).
+</div>
+
+<div class="nb-cell html" name="htm9">
+<p>The following query performs a breadth first search to find the shortest paths (click next to see successive results): </p>
+</div>
+
+<div class="nb-cell query" name="q8">
+length(Path,_),path_from_to(Path,From,To).
+</div>
+
+<div class="nb-cell html" name="htm10">
+<hr style = 'background-color:#000000; color:#000000; height:2px; lineheight:2;' />
+<h1> Section B: Advanced Usage </h1>
 <hr style = 'background-color:#000000; color:#000000; height:2px; lineheight:2;' />
 <h2>7. Definite Clause Grammars </h2>
 <p>
