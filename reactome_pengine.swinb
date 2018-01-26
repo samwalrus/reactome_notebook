@@ -121,7 +121,7 @@ member(ridReaction_ridLink_type_ridReaction(R1, 'Complex452', 'ACTIVATION', R2),
 <div class="nb-cell html" name="htm21">
 <h2> 3. Converting between Reactome Identifiers and familiar names/identifiers </h2>
 <p>In order to convert between the Reactome identifiers and the common names of entities you can use the rid_name/2 predicate. </p>
-<p>You may also want to convert Reactome protein identifiers to  Uniprot identifiers, for this you can use ridProtein_uniprotId/2 </p>
+<p>You may also want to convert Reactome protein identifiers to  Uniprot identifiers, for this you can use ridProtein_uniprotId/2. </p>
 <p>Both of these predicates are full relations so a user can query in both directions and use the predicate to generate examples or to check that a pair are related. </p>
 <p> The following two examples retrieve the name and Uniprot Id for the Reactome Ids 'Complex452' and 'Protein1', respectively. </p>
 </div>
