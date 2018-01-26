@@ -472,7 +472,7 @@ get_data(NumberOfEdges,NumberOfReactions), &lt;-qplot(NumberOfEdges,NumberOfReac
   
 </p>
 <p>
-  We illustrate this functionality by combining The Pengine Reactome and webscraping to build a simple application to show <a href="http://www.hiveplot.net/">Hive Plots</a>.
+  We illustrate this functionality by combining Pengine Reactome and webscraping to build a simple application to show <a href="http://www.hiveplot.net/">Hive Plots</a>.
 </p>
 <p> 
   In <a href="http://www.hiveplot.net/">Hive Plots</a>  the geometric placement of nodes on a graph has meaning, based on user defined rules.
@@ -801,7 +801,7 @@ It can do this from a local client program, or as shown here, in  a cloud hosted
 Programs hosted on SWISH notebooks allow for easy sharing and the ability to render query solutions graphically.
 In contrast, programs running in SWI-Prolog client applications have access to the full power of Prolog &mdash; including system calls and they also maintain privacy of local computations. 
 Either of these options allow researchers to perform analysis of data that requires querying the human reactome and integrating with other data sources.
-In fact it is possible to go further and build entire web applications, where Reactome Pengine is a component part.
+In fact it is also possible to build a web application that interfaces with Reactome Pengine, for instance, a GUI web-based tool that makes predictions using Reactome data.
 </p>
 </div>
 
